@@ -1,42 +1,28 @@
+import prisma from "../prisma/prismaClient.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import prisma from "../prisma/prismaClient.js";
 
-// Register User
-export const register = async (req, res) => {
+export const authHandler = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    const existingUser = await prisma.user.findUnique({ where: { email } });
-    if (existingUser) return res.status(400).json({ message: "User already exists" });
+    let user = await prisma.user.findUnique({ where: { email } });
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    if (user) {
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch) return res.status(400).json({ success:false, message: "Invalid credentials" });
+    } else {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      user = await prisma.user.create({
+        data: { email, password: hashedPassword },
+      });
+    }
 
-    const newUser = await prisma.user.create({
-      data: { email, password: hashedPassword },
-    });
+    jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: "1h" });
 
-    res.status(201).json({ message: "User registered successfully", user: newUser });
+    return res.status(200).json({ success:true, message: "Login successful", user: { id: user.id, email: user.email } });
   } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};
-
-// Login User
-export const login = async (req, res) => {
-  try {
-    const { email, password } = req.body;
-
-    const user = await prisma.user.findUnique({ where: { email } });
-    if (!user) return res.status(400).json({ message: "User not found" });
-
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.status(400).json({ message: "Invalid credentials" });
-
-    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: "1h" });
-
-    res.status(200).json({ token, user: { email: user.email, id: user.id } });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.log("object")
+    return res.status(500).json({ success:false, message: "can't create" });
   }
 };

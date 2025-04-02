@@ -1,70 +1,82 @@
-# Getting Started with Create React App
+# Login Page - React Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a simple login page built using **React**, **TypeScript**, and **Prisma** for user authentication. It includes **Zod** for form validation and **React Hot Toast** for notifications.
 
-## Available Scripts
+## Features
+- User login with email and password
+- Form validation using Zod
+- Toast notifications for user feedback
+- API integration with a backend server
 
-In the project directory, you can run:
+## Frontend Setup
 
-### `npm start`
+### 1. Clone the Repository
+```sh
+git clone https://github.com/your-username/loginpage.git
+cd loginpage
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 2. Install Dependencies
+Run the following command to install the required packages:
+```sh
+npm install
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 3. Install Required Libraries
+Ensure the following libraries are installed:
+```sh
+npm install react-hot-toast @hookform/resolvers zod axios react-hook-form
+```
 
-### `npm test`
+### 4. Start the Frontend Server
+```sh
+npm start
+```
+Then, open [http://localhost:3000](http://localhost:3000) in your browser.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Backend Setup (Authentication API)
 
-### `npm run build`
+### 1. Navigate to the Backend Folder
+```sh
+cd backend
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 2. Install Backend Dependencies
+```sh
+npm install
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 3. Set Up Prisma (If using a database)
+```sh
+npx prisma init
+npx prisma migrate dev --name init
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 4. Start the Backend Server
+```sh
+nodemon index.js  # Install nodemon if not installed
+```
+By default, this will run on `http://localhost:5000/`.
 
-### `npm run eject`
+## Troubleshooting
+- **Toast notifications not working?** Make sure you have added `<Toaster />` inside your root component (e.g., `App.tsx`).
+- **Form validation errors?** Check that you are using `zodResolver` correctly with `react-hook-form`.
+- **API errors?** Verify that your backend server is running and returning valid responses.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Deployment
+To build the project for production, use:
+```sh
+npm run build
+```
 
 ## Learn More
+- [React Documentation](https://reactjs.org/)
+- [Prisma Documentation](https://www.prisma.io/docs/)
+- [Zod Documentation](https://zod.dev/)
+- [React Hook Form](https://react-hook-form.com/)
+- [React Hot Toast](https://react-hot-toast.com/)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
+**Author:** Divyansh Gupta 
+**License:** MIT  
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

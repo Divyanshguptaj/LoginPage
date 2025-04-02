@@ -1,7 +1,10 @@
 import LoginPage from "./pages/LoginPage.tsx";
+import { Toaster } from "react-hot-toast";
+
 function App() {
   return (
-    <div className="w-screen h-screen bg-black text-white">
+    <div>
+      <Toaster position="top-center" reverseOrder={false} />
       <LoginPage/>
     </div>
   );
